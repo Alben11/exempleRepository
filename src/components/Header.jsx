@@ -1,36 +1,32 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import '../i18n';
+import './header.css';
 
-
-
-
-function Header() {
-
+const Header = () => {
     const { t, i18n } = useTranslation();
-    const [lang, setLang] = useState("eng")
+    const [ nextLang, setNextLang ] = useState('en');
 
-    const handleLocalChange = () => {
-        i18n.changeLanguage(lang)
+    const handleChangeLang = () => {
+        console.log('Change to ' + nextLang);
+        i18n.changeLanguage(nextLang);
+        
+        if (nextLang == 'fr') {
+            setNextLang('en');
+        } else {
+            setNextLang('fr');
+        }
 
-        if(lang === "fr")
-            {
-            setLang("en")
-        }
-        else
-        {
-            setLang("fr")
-        }
+ 
     }
-    
+
 
     return (
-        
-        <div>
-            <button onClick={handleLocalChange}>{lang}</button>
-
-            <h1>{t("welcome")}</h1>
-        </div>
+        <>
+            <button className='intro' onClick={handleChangeLang}>{nextLang}</button>
+            <h1>{t('monchoix')}</h1>
+        </>
     );
-}
+};
 
 export default Header;
